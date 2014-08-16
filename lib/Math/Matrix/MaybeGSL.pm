@@ -313,6 +313,14 @@ is returned.
       $min = $matrix->min();
       ($min, $row, $col) = $matrix->min();
 
+=head1 OVERLOAD
+
+For now only the matrix multiplication is overloaded, in the usual operator, C<*>.
+Take attention that matrix multiplication only works if the matrix dimensions are
+compatible.
+
+    $m = $a * $b;
+
 =head1 BUGS
 
 At this initial stage of this module, only the methods that I am really needing for my depending applications are 
