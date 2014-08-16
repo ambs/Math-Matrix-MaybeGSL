@@ -1,0 +1,12 @@
+
+0.002  2014-08-16
+
+    * Added a Changes file.
+
+0.001  2014-08-16
+
+	* First working version with constructors:
+	    new / new_from_cols / new_from_rows
+	  and methods
+	    assign, element, vconcat, hconcat, max, min,
+	    each and dim.
