@@ -1,4 +1,11 @@
 
+ Math::Matrix::MaybeGSL Changes
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+0.003  2014-08-17
+
+    * Added PkgVersion dzil plugin to add change to module file.
+
 0.002  2014-08-16
 
     * Added a Changes file.
