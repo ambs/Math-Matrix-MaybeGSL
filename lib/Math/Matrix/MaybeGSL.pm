@@ -195,6 +195,9 @@ sub _multiply {
     	return _new($object * $argument);
     }
 }
+
+
+
 =head1 SYNOPSIS
 
    use Math::Matrix::MaybeGSL;

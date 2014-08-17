@@ -2,6 +2,10 @@
  Math::Matrix::MaybeGSL Changes
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+0.005  
+
+    * Added serialization methods.
+
 0.004  2014-08-17
 
     * Fixed multiplication overload.
