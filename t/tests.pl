@@ -1,6 +1,6 @@
 #!perl
 
-use Test::More tests => 49;
+use Test::More tests => 59;
 use Math::Matrix::MaybeGSL;
 
 my $m = Matrix->new(10, 20);
@@ -61,6 +61,21 @@ is $m6->element(1,1), 23;
 is $m6->element(1,2), 31;
 is $m6->element(2,1), 34;
 is $m6->element(2,2), 46;
+
+my $m61 = $m6 * 2;
+isa_ok($m61, 'Math::Matrix::MaybeGSL');
+is $m61->element(1,1), 23 * 2;
+is $m61->element(1,2), 31 * 2;
+is $m61->element(2,1), 34 * 2;
+is $m61->element(2,2), 46 * 2;
+
+my $m62 = 2 * $m6;
+isa_ok($m62, 'Math::Matrix::MaybeGSL');
+is $m62->element(1,1), 23 * 2;
+is $m62->element(1,2), 31 * 2;
+is $m62->element(2,1), 34 * 2;
+is $m62->element(2,2), 46 * 2;
+
 
 my $m7 = $m6->each( sub { $_ = shift; ($_ + $_%2) / 2 });
 isa_ok($m7, 'Math::Matrix::MaybeGSL');

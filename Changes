@@ -2,6 +2,11 @@
  Math::Matrix::MaybeGSL Changes
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+0.004  2014-08-17
+
+    * Fixed multiplication overload.
+    * Added further tests on multiplication.
+
 0.003  2014-08-17
 
     * Added PkgVersion dzil plugin to add change to module file.

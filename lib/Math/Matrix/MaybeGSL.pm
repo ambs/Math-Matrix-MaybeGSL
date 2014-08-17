@@ -182,16 +182,19 @@ sub _assign_multiply
  
     return( &_multiply($object,$argument,undef) );
 }
+
 sub _multiply {
     my ($object, $argument, $flag) = @_;
  
+    $argument = $argument->{matrix} if ref $argument eq __PACKAGE__;
+    $object   = $object->{matrix}   if ref $object   eq __PACKAGE__;
+
     if ((defined $flag) && $flag) {
-    	return _new($argument->{matrix} * $object->{matrix});
+    	return _new($argument * $object);
     } else {
-    	return _new($object->{matrix} * $argument->{matrix});
+    	return _new($object * $argument);
     }
 }
-
 =head1 SYNOPSIS
 
    use Math::Matrix::MaybeGSL;
