@@ -1,6 +1,6 @@
 #!perl
 
-use Test::More tests => 59;
+use Test::More tests => 65;
 use Math::Matrix::MaybeGSL;
 
 my $m = Matrix->new(10, 20);
@@ -96,12 +96,25 @@ is $c, 1;
 
 
 my $m8 = Matrix->new_from_rows( [[1, 2], [3, 4]]);
-isa_ok($m, 'Math::Matrix::MaybeGSL');
+isa_ok($m8, 'Math::Matrix::MaybeGSL');
 
 is $m8->element(1,1), 1;
 is $m8->element(2,1), 3;
 is $m8->element(1,2), 2;
 is $m8->element(2,2), 4;
 
+$m8->write("tmp-mat");
+
+ok -f "tmp-mat";
+
+my $m9 = Matrix->read("tmp-mat");
+isa_ok($m9, 'Math::Matrix::MaybeGSL');
+
+is $m9->element(1,1), 1;
+is $m9->element(2,1), 3;
+is $m9->element(1,2), 2;
+is $m9->element(2,2), 4;
+
+unlink "tmp-mat" if -f "tmp-mat";
 
 1;

@@ -2,9 +2,9 @@
  Math::Matrix::MaybeGSL Changes
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-0.005  
+0.005  2014-08-22
 
-    * Added serialization methods.
+    * Added read/write methods.
 
 0.004  2014-08-17
 
