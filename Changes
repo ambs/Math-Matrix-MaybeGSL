@@ -2,6 +2,8 @@
  Math::Matrix::MaybeGSL Changes
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+    * dist.ini with reference to repo (thanks to Gabor Szabo).
+
 0.005  2014-08-22
 
     * Added read/write methods.
