@@ -324,6 +324,12 @@ own API, stealing method names from both these modules.
 This is a simple function that returns this package name: C<Math::Matrix::MaybeGSL>.
 It allows a simple interface as shown below for the constructors.
 
+=method C<isGSL>
+
+Returns a true value is running over L<Math::GSL> backend.
+
+    if (Matrix->isGSL) { ... }
+
 =method C<new>
 
 Construct a new matrix object. Receives as arguments the number of rows and columns of the
