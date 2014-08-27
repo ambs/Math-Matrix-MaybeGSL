@@ -39,6 +39,11 @@ sub _call {
     $obj->{matrix}->$method(@args);
 }
 
+sub isGSL {
+    our $matrix_module;
+    return $matrix_module eq "Math::GSL::Matrix";
+}
+
 BEGIN {
     our $matrix_module = _choose_matrix_module();
     my %functions

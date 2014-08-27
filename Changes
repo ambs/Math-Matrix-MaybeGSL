@@ -2,6 +2,9 @@
  Math::Matrix::MaybeGSL Changes
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+0.006  2014-08-27
+
+    * Added isGSL method to check if running under GSL.
     * dist.ini with reference to repo (thanks to Gabor Szabo).
 
 0.005  2014-08-22
