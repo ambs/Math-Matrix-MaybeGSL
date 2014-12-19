@@ -53,8 +53,9 @@ BEGIN {
                        my (undef, $rows, $cols) = @_;
                        return _new( $matrix_module->new($rows, $cols) );
                    },
-                   dim  => sub { _call(dim => @_) },
-                   each => sub { _new(_call(each => @_)) },
+                   dim     => sub { _call(dim => @_) },
+                   each    => sub { _new(_call(each => @_)) },
+                   as_list => sub { _call(as_list => @_) },
                   },
          'Math::GSL::Matrix' => {
             assign        => sub { _call(set_elem => ($_[0], $_[1]-1, $_[2]-1, $_[3])); },
