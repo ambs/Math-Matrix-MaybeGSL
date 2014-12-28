@@ -56,6 +56,7 @@ BEGIN {
                    dim     => sub { _call(dim => @_) },
                    each    => sub { _new(_call(each => @_)) },
                    as_list => sub { _call(as_list => @_) },
+                   det     => sub { _call(det => @_)} ,
                   },
          'Math::GSL::Matrix' => {
             assign        => sub { _call(set_elem => ($_[0], $_[1]-1, $_[2]-1, $_[3])); },
