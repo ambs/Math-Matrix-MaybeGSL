@@ -53,8 +53,10 @@ BEGIN {
                        my (undef, $rows, $cols) = @_;
                        return _new( $matrix_module->new($rows, $cols) );
                    },
-                   dim  => sub { _call(dim => @_) },
-                   each => sub { _new(_call(each => @_)) },
+                   dim     => sub { _call(dim => @_) },
+                   each    => sub { _new(_call(each => @_)) },
+                   as_list => sub { _call(as_list => @_) },
+                   det     => sub { _call(det => @_)} ,
                   },
          'Math::GSL::Matrix' => {
             assign        => sub { _call(set_elem => ($_[0], $_[1]-1, $_[2]-1, $_[3])); },
@@ -424,6 +426,15 @@ is returned.
 
       $min = $matrix->min();
       ($min, $row, $col) = $matrix->min();
+
+=method C<det>
+
+Returns the determinant of the matrix, without going through the rigamarole of computing
+a LR decomposition.
+
+=method C<as_list>
+
+Get the contents of a matrix instance as a Perl list.
 
 =method C<write>
 

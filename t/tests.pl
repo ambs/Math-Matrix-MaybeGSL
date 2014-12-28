@@ -1,6 +1,6 @@
 #!perl
 
-use Test::More tests => 65;
+use Test::More tests => 67;
 use Math::Matrix::MaybeGSL;
 
 my $m = Matrix->new(10, 20);
@@ -24,6 +24,7 @@ is $m2->element(2,1), 2;
 is $m2->element(1,2), 3;
 is $m2->element(2,2), 4;
 
+is $m2->det, -2, "determinant is 1*4-2*3=-2";
 
 
 my $m3 = Matrix->new_from_cols( [[5, 6], [7, 8]]);
@@ -106,6 +107,9 @@ is $m8->element(2,2), 4;
 $m8->write("tmp-mat");
 
 ok -f "tmp-mat";
+
+is_deeply [$m8->as_list], [1, 2, 3, 4];
+
 
 my $m9 = Matrix->read("tmp-mat");
 isa_ok($m9, 'Math::Matrix::MaybeGSL');
