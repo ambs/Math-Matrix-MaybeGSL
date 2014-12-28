@@ -432,6 +432,10 @@ is returned.
 Returns the determinant of the matrix, without going through the rigamarole of computing
 a LR decomposition.
 
+=method C<as_list>
+
+Get the contents of a matrix instance as a Perl list.
+
 =method C<write>
 
 Given a matrix and a filename, writes that matrix to the file. Note that if the file
