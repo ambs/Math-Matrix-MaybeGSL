@@ -427,6 +427,11 @@ is returned.
       $min = $matrix->min();
       ($min, $row, $col) = $matrix->min();
 
+=method C<det>
+
+Returns the determinant of the matrix, without going through the rigamarole of computing
+a LR decomposition.
+
 =method C<write>
 
 Given a matrix and a filename, writes that matrix to the file. Note that if the file
