@@ -83,6 +83,7 @@ BEGIN {
                     return scalar(_call(min => @_));
                 };
             },
+            row           => sub { _new(_call(row => $_[0], $_[1]-1)) },
            },
          'Math::MatrixReal' => {
             assign        => sub { _call(assign        => @_); },
@@ -95,6 +96,7 @@ BEGIN {
             read          => sub { _mreal_read($_[1]) },
             max           => sub { _mreal_max($_[0]{matrix}) },
             min           => sub { _mreal_min($_[0]{matrix}) },
+            row           => sub { _new( $_[0]{matrix}->row($_[1]) ) },
                                },
 	);
 
