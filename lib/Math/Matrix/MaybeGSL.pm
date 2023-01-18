@@ -83,6 +83,7 @@ BEGIN {
                     return scalar(_call(min => @_));
                 };
             },
+            row           => sub { _new(_call(row => $_[0], $_[1]-1)) },
            },
          'Math::MatrixReal' => {
             assign        => sub { _call(assign        => @_); },
@@ -95,6 +96,7 @@ BEGIN {
             read          => sub { _mreal_read($_[1]) },
             max           => sub { _mreal_max($_[0]{matrix}) },
             min           => sub { _mreal_min($_[0]{matrix}) },
+            row           => sub { _new( $_[0]{matrix}->row($_[1]) ) },
                                },
 	);
 
@@ -450,6 +452,13 @@ Reads a matrix written by the C<write> method. Note that it will only read matri
 written by the same back-end that is being used for reading.
 
      my $matrix = Matrix->load("my_matrix.dat");
+
+=method C<row>
+
+Returns the selected row in a matrix as a new matrix object. Note that B<indexes start at 1>
+unlike Perl and some other programming languages.
+
+    my $row = $matrix->row(1);
 
 =head1 OVERLOAD
 
