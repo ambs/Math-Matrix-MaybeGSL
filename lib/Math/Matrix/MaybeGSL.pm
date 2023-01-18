@@ -453,6 +453,13 @@ written by the same back-end that is being used for reading.
 
      my $matrix = Matrix->load("my_matrix.dat");
 
+=method C<row>
+
+Returns the selected row in a matrix as a new matrix object. Note that B<indexes start at 1>
+unlike Perl and some other programming languages.
+
+    my $row = $matrix->row(1);
+
 =head1 OVERLOAD
 
 For now only the matrix multiplication is overloaded, in the usual operator, C<*>.
