@@ -479,11 +479,11 @@ unlike Perl and some other programming languages.
 
 =head1 OVERLOAD
 
-For now only the matrix multiplication is overloaded, in the usual operator, C<*>.
-Take attention that matrix multiplication only works if the matrix dimensions are
-compatible.
+For now only matrix multiplication and addition are overloaded, in the usual operators, C<*> and C<+>, correspondingly.
+Take attention that these operations only work if the matrix dimensions are compatible.
 
     $m = $a * $b;
+    $n = $a + $b;
 
 =head1 BUGS
 
