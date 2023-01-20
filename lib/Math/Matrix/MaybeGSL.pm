@@ -84,6 +84,7 @@ BEGIN {
                 };
             },
             row           => sub { _new(_call(row => $_[0], $_[1]-1)) },
+            find_zeros    => sub { _gsl_find_zeros(@_) },
            },
          'Math::MatrixReal' => {
             assign        => sub { _call(assign        => @_); },
@@ -97,6 +98,7 @@ BEGIN {
             max           => sub { _mreal_max($_[0]{matrix}) },
             min           => sub { _mreal_min($_[0]{matrix}) },
             row           => sub { _new( $_[0]{matrix}->row($_[1]) ) },
+            find_zeros    => sub { _mreal_find_zeros(@_) },
                                },
 	);
 
@@ -250,6 +252,20 @@ sub _mreal_read {
     return _new( Math::MatrixReal->new_from_rows($m) );
 }
 
+sub _mreal_find_zeros {
+    my ($matrix) = @_;
+    my ($rs, $cs) = $matrix->dim();
+
+    my @matches;
+    my $pos = 0;
+    for ($matrix->as_list()) {
+        push @matches, [int($pos/$rs)+1, ($pos % $rs)+1] unless $_;
+        $pos++;
+    }
+
+    return @matches;
+}
+
 sub _gsl_read {
     my $filename = shift;
 
@@ -296,6 +312,21 @@ sub _gsl_write {
 
     Math::GSL::gsl_fclose($fh);
 
+}
+
+sub _gsl_find_zeros {
+    my ($matrix) = @_;
+    my ($rs, $cs) = $matrix->dim();
+
+    my $raw_matrix = $matrix->{matrix}->raw;
+    my @matches;
+    for my $i (0..$rs-1) {
+        for my $j (0..$cs-1) {
+            next if Math::GSL::Matrix::gsl_matrix_get($raw_matrix, $i, $j);
+            push @matches, [$i+1, $j+1];
+        }
+    }
+    return @matches;
 }
 
 
@@ -459,6 +490,13 @@ Returns the selected row in a matrix as a new matrix object. Note that B<indexes
 unlike Perl and some other programming languages.
 
     my $row = $matrix->row(1);
+
+=method C<find_zeros>
+
+Given a matrix, returns a nested list of indices corresponding to zero values in the
+given matrix. Note that B<indexes start at 1> unlike Perl and some other programming languages.
+
+    my @indices = $matrix->find_zeros();
 
 =head1 OVERLOAD
 
