@@ -491,6 +491,13 @@ unlike Perl and some other programming languages.
 
     my $row = $matrix->row(1);
 
+=method C<find_zeros>
+
+Given a matrix, returns a nested list of indices corresponding to zero values in the
+given matrix. Note that B<indexes start at 1> unlike Perl and some other programming languages.
+
+    my @indices = $matrix->find_zeros();
+
 =head1 OVERLOAD
 
 For now only the matrix multiplication is overloaded, in the usual operator, C<*>.
