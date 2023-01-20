@@ -259,7 +259,7 @@ sub _mreal_find_zeros {
     my @matches;
     my $pos = 0;
     for ($matrix->as_list()) {
-        push @matches, [int($pos/$rs)+1, ($pos % $rs)+1] unless $_;
+        push @matches, [int($pos/$cs)+1, ($pos % $cs)+1] unless $_;
         $pos++;
     }
 
