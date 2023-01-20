@@ -11,6 +11,8 @@ our @EXPORT = qw{Matrix};
 use overload
        '*=' => '_assign_multiply',
         '*' => '_multiply',
+       '+=' => '_assign_add',
+        '+' => '_add',
  'fallback' =>   undef;
 
 sub _choose_matrix_module {
@@ -213,6 +215,21 @@ sub _multiply {
     } else {
     	return _new($object * $argument);
     }
+}
+
+sub _assign_add {
+    my($object,$argument) = @_;
+
+    return( &_add($object,$argument) );
+}
+
+sub _add {
+    my ($object, $argument) = @_;
+
+    $object   = $object->{matrix}   if ref $object   eq __PACKAGE__;
+    $argument = $argument->{matrix} if ref $argument eq __PACKAGE__;
+
+    return _new($object + $argument);
 }
 
 sub _mreal_write {
@@ -500,11 +517,11 @@ given matrix. Note that B<indexes start at 1> unlike Perl and some other program
 
 =head1 OVERLOAD
 
-For now only the matrix multiplication is overloaded, in the usual operator, C<*>.
-Take attention that matrix multiplication only works if the matrix dimensions are
-compatible.
+For now only matrix multiplication and addition are overloaded, in the usual operators, C<*> and C<+>, correspondingly.
+Take attention that these operations only work if the matrix dimensions are compatible.
 
     $m = $a * $b;
+    $n = $a + $b;
 
 =head1 BUGS
 
