@@ -11,6 +11,8 @@ our @EXPORT = qw{Matrix};
 use overload
        '*=' => '_assign_multiply',
         '*' => '_multiply',
+       '+=' => '_assign_add',
+        '+' => '_add',
  'fallback' =>   undef;
 
 sub _choose_matrix_module {
@@ -211,6 +213,21 @@ sub _multiply {
     } else {
     	return _new($object * $argument);
     }
+}
+
+sub _assign_add {
+    my($object,$argument) = @_;
+
+    return( &_add($object,$argument) );
+}
+
+sub _add {
+    my ($object, $argument) = @_;
+
+    $object   = $object->{matrix}   if ref $object   eq __PACKAGE__;
+    $argument = $argument->{matrix} if ref $argument eq __PACKAGE__;
+
+    return _new($object + $argument);
 }
 
 sub _mreal_write {

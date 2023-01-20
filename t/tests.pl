@@ -1,6 +1,6 @@
 #!perl
 
-use Test::More tests => 71;
+use Test::More tests => 76;
 use Math::Matrix::MaybeGSL;
 
 my $m = Matrix->new(10, 20);
@@ -129,5 +129,15 @@ isa_ok($m11, 'Math::Matrix::MaybeGSL');
 
 is $m11->element(1,1), 1;
 is $m11->element(1,2), 2;
+
+
+my $m12 = $m2 + $m3;
+isa_ok($m12, 'Math::Matrix::MaybeGSL');
+#     6   10
+#     8   12
+is $m12->element(1,1),  6;
+is $m12->element(1,2), 10;
+is $m12->element(2,1),  8;
+is $m12->element(2,2), 12;
 
 1;
