@@ -1,6 +1,6 @@
 #!perl
 
-use Test::More tests => 86;
+use Test::More tests => 92;
 use Math::Matrix::MaybeGSL;
 
 my $m = Matrix->new(10, 20);
@@ -153,5 +153,16 @@ is $m13->element(1,1),  6;
 is $m13->element(1,2), 10;
 is $m13->element(2,1),  8;
 is $m13->element(2,2), 12;
+
+my $m14 = Matrix->new_from_rows( [[1, 2], [3, 4]]);
+isa_ok($m14, 'Math::Matrix::MaybeGSL');
+
+my $m15 = $m14->transpose();
+isa_ok($m15, 'Math::Matrix::MaybeGSL');
+
+is $m15->element(1,1), 1;
+is $m15->element(1,2), 3;
+is $m15->element(2,1), 2;
+is $m15->element(2,2), 4;
 
 1;

@@ -87,6 +87,7 @@ BEGIN {
             },
             row           => sub { _new(_call(row => $_[0], $_[1]-1)) },
             find_zeros    => sub { _gsl_find_zeros(@_) },
+            transpose     => sub { _new(_call(transpose => $_[0], $_[1]{matrix})) }, # FIXME: Will fail on non-square matrices
            },
          'Math::MatrixReal' => {
             assign        => sub { _call(assign        => @_); },
@@ -101,6 +102,7 @@ BEGIN {
             min           => sub { _mreal_min($_[0]{matrix}) },
             row           => sub { _new( $_[0]{matrix}->row($_[1]) ) },
             find_zeros    => sub { _mreal_find_zeros(@_) },
+            transpose     => sub { _new( ~$_[0]{matrix} ) },
                                },
 	);
 
