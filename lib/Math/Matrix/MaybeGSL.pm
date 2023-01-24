@@ -550,6 +550,10 @@ modules support it).
 
 Check C<Math::MatrixReal> and C<Math::GSL::Matrix> documentation.
 
+=head1 CONTRIBUTORS
+
+Andrius Merkys <merkys@cpan.org>
+
 =cut
 
 1;
