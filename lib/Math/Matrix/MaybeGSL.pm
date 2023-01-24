@@ -354,6 +354,7 @@ sub _gsl_transpose {
 
     return _new($matrix->{matrix}->transpose()) if $rs == $cs;
 
+    # need to think of a better performing method
     my $square;
     if ($rs > $cs) {
         $square = $matrix->{matrix}->hconcat(Math::GSL::Matrix->new($rs, $rs-$cs));
