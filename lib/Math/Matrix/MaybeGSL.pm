@@ -352,26 +352,10 @@ sub _gsl_transpose {
     my ($matrix) = @_;
     my ($rs, $cs) = $matrix->dim();
 
-    return _new($matrix->{matrix}->transpose()) if $rs == $cs;
+    my $result = Math::GSL::Matrix::gsl_matrix_alloc($cs, $rs);
+    Math::GSL::Matrix::gsl_matrix_transpose_memcpy($result, $matrix->{matrix}->raw());
 
-    # need to think of a better performing method
-    my $square;
-    if ($rs > $cs) {
-        $square = $matrix->{matrix}->hconcat(Math::GSL::Matrix->new($rs, $rs-$cs));
-    } else {
-        $square = $matrix->{matrix}->vconcat(Math::GSL::Matrix->new($cs-$rs, $cs));
-    }
-    my $transpose = $square->transpose();
-    my $raw = $transpose->raw();
-    my $ret = Math::GSL::Matrix::gsl_matrix_alloc($cs, $rs);
-    for my $i (0..$cs-1) {
-        for my $j (0..$rs-1) {
-            Math::GSL::Matrix::gsl_matrix_set($ret, $i, $j,
-                Math::GSL::Matrix::gsl_matrix_get($raw, $i, $j));
-        }
-    }
-
-    return _new(Math::GSL::Matrix->new($ret));
+    return _new(Math::GSL::Matrix->new($result));
 }
 
 
