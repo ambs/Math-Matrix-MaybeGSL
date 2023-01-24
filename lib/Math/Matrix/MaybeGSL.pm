@@ -87,6 +87,7 @@ BEGIN {
             },
             row           => sub { _new(_call(row => $_[0], $_[1]-1)) },
             find_zeros    => sub { _gsl_find_zeros(@_) },
+            transpose     => sub { _gsl_transpose(@_) },
            },
          'Math::MatrixReal' => {
             assign        => sub { _call(assign        => @_); },
@@ -101,6 +102,7 @@ BEGIN {
             min           => sub { _mreal_min($_[0]{matrix}) },
             row           => sub { _new( $_[0]{matrix}->row($_[1]) ) },
             find_zeros    => sub { _mreal_find_zeros(@_) },
+            transpose     => sub { _new( ~$_[0]{matrix} ) },
                                },
 	);
 
@@ -346,6 +348,16 @@ sub _gsl_find_zeros {
     return @matches;
 }
 
+sub _gsl_transpose {
+    my ($matrix) = @_;
+    my ($rs, $cs) = $matrix->dim();
+
+    my $result = Math::GSL::Matrix::gsl_matrix_alloc($cs, $rs);
+    Math::GSL::Matrix::gsl_matrix_transpose_memcpy($result, $matrix->{matrix}->raw());
+
+    return _new(Math::GSL::Matrix->new($result));
+}
+
 
 
 =head1 SYNOPSIS
@@ -514,6 +526,10 @@ Given a matrix, returns a nested list of indices corresponding to zero values in
 given matrix. Note that B<indexes start at 1> unlike Perl and some other programming languages.
 
     my @indices = $matrix->find_zeros();
+
+=method C<transpose>
+
+Returns transposed matrix.
 
 =head1 OVERLOAD
 
