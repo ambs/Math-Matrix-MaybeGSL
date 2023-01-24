@@ -1,6 +1,6 @@
 #!perl
 
-use Test::More tests => 100;
+use Test::More tests => 101;
 use Math::Matrix::MaybeGSL;
 
 my $m = Matrix->new(10, 20);
@@ -171,6 +171,7 @@ isa_ok($m16, 'Math::Matrix::MaybeGSL');
 my $m17 = $m16->transpose();
 isa_ok($m17, 'Math::Matrix::MaybeGSL');
 
+is join(',', $m17->dim()), '3,2';
 is $m17->element(1,1), 1;
 is $m17->element(1,2), 4;
 is $m17->element(2,1), 2;

@@ -356,12 +356,21 @@ sub _gsl_transpose {
 
     my $square;
     if ($rs > $cs) {
-        $square = $matrix->{matrix}->hconcat( Math::GSL::Matrix->new($rs, $rs-$cs) );
+        $square = $matrix->{matrix}->hconcat(Math::GSL::Matrix->new($rs, $rs-$cs));
     } else {
-        $square = $matrix->{matrix}->vconcat( Math::GSL::Matrix->new($cs-$rs, $cs) );
+        $square = $matrix->{matrix}->vconcat(Math::GSL::Matrix->new($cs-$rs, $cs));
+    }
+    my $transpose = $square->transpose();
+    my $raw = $transpose->raw();
+    my $ret = Math::GSL::Matrix::gsl_matrix_alloc($cs, $rs);
+    for my $i (0..$cs-1) {
+        for my $j (0..$rs-1) {
+            Math::GSL::Matrix::gsl_matrix_set($ret, $i, $j,
+                Math::GSL::Matrix::gsl_matrix_get($raw, $i, $j));
+        }
     }
 
-    return _new($square->transpose()); # FIXME: Trim to the original size
+    return _new(Math::GSL::Matrix->new($ret));
 }
 
 
