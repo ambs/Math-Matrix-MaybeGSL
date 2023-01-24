@@ -527,6 +527,10 @@ given matrix. Note that B<indexes start at 1> unlike Perl and some other program
 
     my @indices = $matrix->find_zeros();
 
+=method C<transpose>
+
+Returns transposed matrix.
+
 =head1 OVERLOAD
 
 For now only matrix multiplication and addition are overloaded, in the usual operators, C<*> and C<+>, correspondingly.
