@@ -87,7 +87,7 @@ BEGIN {
             },
             row           => sub { _new(_call(row => $_[0], $_[1]-1)) },
             find_zeros    => sub { _gsl_find_zeros(@_) },
-            transpose     => sub { _new(_call(transpose => $_[0], $_[1]{matrix})) }, # FIXME: Will fail on non-square matrices
+            transpose     => sub { _gsl_transpose(@_) },
            },
          'Math::MatrixReal' => {
             assign        => sub { _call(assign        => @_); },
@@ -346,6 +346,22 @@ sub _gsl_find_zeros {
         }
     }
     return @matches;
+}
+
+sub _gsl_transpose {
+    my ($matrix) = @_;
+    my ($rs, $cs) = $matrix->dim();
+
+    return _new($matrix->{matrix}->transpose()) if $rs == $cs;
+
+    my $square;
+    if ($rs > $cs) {
+        $square = $matrix->{matrix}->hconcat( Math::GSL::Matrix->new($rs, $rs-$cs) );
+    } else {
+        $square = $matrix->{matrix}->vconcat( Math::GSL::Matrix->new($cs-$rs, $cs) );
+    }
+
+    return _new($square->transpose()); # FIXME: Trim to the original size
 }
 
 
