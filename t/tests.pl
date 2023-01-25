@@ -1,6 +1,6 @@
 #!perl
 
-use Test::More tests => 120;
+use Test::More tests => 126;
 use Math::Matrix::MaybeGSL;
 
 my $m = Matrix->new(10, 20);
@@ -193,21 +193,32 @@ is $m19->element(2,1), 4;
 is $m19->element(2,2), 5;
 is $m19->element(2,3), 6;
 
-my $m20 = Matrix->new_from_rows( [[1, 2], [3, 4]]);
-my $m21 = Matrix->new_from_rows( [[4, 3], [2, 1]]);
+my $m20 = Matrix->new_from_rows( [[-1, 1.5], [1, -1]]);
+isa_ok($m20, 'Math::Matrix::MaybeGSL');
 
-my $m22 = $m20 - $m21;
-my $m23 = $m21 - $m20;
-isa_ok($m22, 'Math::Matrix::MaybeGSL');
-isa_ok($m23, 'Math::Matrix::MaybeGSL');
+my $m21 = $m20->inverse();
+isa_ok($m21, 'Math::Matrix::MaybeGSL');
 
-is $m22->element(1,1), -3;
-is $m22->element(1,2), -1;
-is $m22->element(2,1),  1;
-is $m22->element(2,2),  3;
-is $m23->element(1,1),  3;
-is $m23->element(1,2),  1;
-is $m23->element(2,1), -1;
-is $m23->element(2,2), -3;
+is $m21->element(1,1), 2;
+is $m21->element(1,2), 3;
+is $m21->element(2,1), 2;
+is $m21->element(2,2), 2;
+
+my $m22 = Matrix->new_from_rows( [[1, 2], [3, 4]]);
+my $m23 = Matrix->new_from_rows( [[4, 3], [2, 1]]);
+
+my $m24 = $m22 - $m23;
+my $m25 = $m23 - $m22;
+isa_ok($m24, 'Math::Matrix::MaybeGSL');
+isa_ok($m25, 'Math::Matrix::MaybeGSL');
+
+is $m24->element(1,1), -3;
+is $m24->element(1,2), -1;
+is $m24->element(2,1),  1;
+is $m24->element(2,2),  3;
+is $m25->element(1,1),  3;
+is $m25->element(1,2),  1;
+is $m25->element(2,1), -1;
+is $m25->element(2,2), -3;
 
 1;
