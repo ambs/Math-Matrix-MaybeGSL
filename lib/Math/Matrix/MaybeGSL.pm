@@ -560,11 +560,13 @@ nonzero determinant.
 
 =head1 OVERLOAD
 
-For now only matrix multiplication and addition are overloaded, in the usual operators, C<*> and C<+>, correspondingly.
-Take attention that these operations only work if the matrix dimensions are compatible.
+For now matrix multiplication, addition and subtraction are overloaded, in the usual operators,
+C<*>, C<+> and C<->, correspondingly. Take attention that these operations only work if the
+matrix dimensions are compatible.
 
     $m = $a * $b;
     $n = $a + $b;
+    $n = $a - $b;
 
 =head1 BUGS
 
