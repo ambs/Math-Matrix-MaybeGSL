@@ -13,6 +13,8 @@ use overload
         '*' => '_multiply',
        '+=' => '_assign_add',
         '+' => '_add',
+       '-=' => '_assign_subtract',
+        '-' => '_subtract',
  'fallback' =>   undef;
 
 sub _choose_matrix_module {
@@ -233,6 +235,25 @@ sub _add {
     $argument = $argument->{matrix} if ref $argument eq __PACKAGE__;
 
     return _new($object + $argument);
+}
+
+sub _assign_subtract {
+    my($object,$argument) = @_;
+
+    return( &_subtract($object,$argument,undef) );
+}
+
+sub _subtract {
+    my ($object, $argument, $flag) = @_;
+
+    $argument = $argument->{matrix} if ref $argument eq __PACKAGE__;
+    $object   = $object->{matrix}   if ref $object   eq __PACKAGE__;
+
+    if ((defined $flag) && $flag) {
+    	return _new($argument - $object);
+    } else {
+    	return _new($object - $argument);
+    }
 }
 
 sub _mreal_write {
@@ -539,11 +560,13 @@ nonzero determinant.
 
 =head1 OVERLOAD
 
-For now only matrix multiplication and addition are overloaded, in the usual operators, C<*> and C<+>, correspondingly.
-Take attention that these operations only work if the matrix dimensions are compatible.
+For now matrix multiplication, addition and subtraction are overloaded, in the usual operators,
+C<*>, C<+> and C<->, correspondingly. Take attention that these operations only work if the
+matrix dimensions are compatible.
 
     $m = $a * $b;
     $n = $a + $b;
+    $n = $a - $b;
 
 =head1 BUGS
 
