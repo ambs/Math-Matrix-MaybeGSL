@@ -59,6 +59,7 @@ BEGIN {
                    each    => sub { _new(_call(each => @_)) },
                    as_list => sub { _call(as_list => @_) },
                    det     => sub { _call(det => @_)} ,
+                   inverse => sub { _new(_call(inverse => @_)) },
                   },
          'Math::GSL::Matrix' => {
             assign        => sub { _call(set_elem => ($_[0], $_[1]-1, $_[2]-1, $_[3])); },
@@ -530,6 +531,11 @@ given matrix. Note that B<indexes start at 1> unlike Perl and some other program
 =method C<transpose>
 
 Returns transposed matrix.
+
+=method C<inverse>
+
+Returns the inverse of a given matrix. Note the given matrix has to be square and has to have
+nonzero determinant.
 
 =head1 OVERLOAD
 
